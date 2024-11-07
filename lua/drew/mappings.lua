@@ -1,10 +1,11 @@
-
 local map = vim.keymap.set
-
 
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
+map("i", "kj", "<ESC>")
+
 vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+
 vim.api.nvim_set_keymap('n', '<Esc>', ':let @/ = ""<CR>:nohlsearch<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<C-s>', ':w<CR>', { noremap = true, silent = true })
 
@@ -38,3 +39,8 @@ vim.keymap.set('n', '<leader>fw', tlscp.live_grep, { desc = 'Telescope live grep
 vim.keymap.set('n', '<leader>fb', tlscp.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', tlscp.help_tags, { desc = 'Telescope help tags' })
 
+-- Comment api mappings
+vim.api.nvim_set_keymap('n', '<leader>/', ':lua require("Comment.api").toggle.linewise.current()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>u', ':lua require("Comment.api").uncomment.linewise.current()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<leader>/', ':lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<leader>u', ':lua require("Comment.api").uncomment.linewise(vim.fn.visualmode())<CR>', { noremap = true, silent = true })

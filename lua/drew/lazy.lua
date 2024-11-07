@@ -36,6 +36,12 @@ require("lazy").setup({
     { "neovim/nvim-lspconfig", },
     {"voldikss/vim-floaterm"},
     {'jonarrien/telescope-cmdline.nvim'},
+    {    
+      'numToStr/Comment.nvim',
+      config = function()
+        require('Comment').setup()
+      end,
+    },
     {
       "hrsh7th/nvim-cmp",
       dependencies = {
@@ -324,6 +330,6 @@ require("lazy").setup({
   -- colorscheme that will be used when installing plugins.
   install = { colorscheme = { "everforest" } },
   -- automatically check for plugin updates
-  checker = { enabled = true },
+  checker = { enabled = false },
 })
 
