@@ -1,4 +1,3 @@
--- Bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -25,19 +24,28 @@ vim.g.maplocalleader = "\\"
 require("lazy").setup({
   spec = {
     -- import your plugins
+    { "windwp/nvim-autopairs" },
+    { "nvim-lualine/lualine.nvim" }, 
+    { "voldikss/vim-floaterm" },
+    {'jonarrien/telescope-cmdline.nvim'},
+    { "gen740/SmoothCursor.nvim" },
+    { "nvim-treesitter/nvim-treesitter" },
+    {
+        'huy-hng/anyline.nvim',
+        dependencies = { 'nvim-treesitter/nvim-treesitter' },
+        config = true,
+        event = 'VeryLazy',
+    },
     {
       "neanias/everforest-nvim",
       version = "*",
       lazy = false,
       priority = 1000,
     },
-    { "windwp/nvim-autopairs" },
-    { "nvim-lualine/lualine.nvim" }, 
-    { "neovim/nvim-lspconfig", },
-    {"voldikss/vim-floaterm"},
-    {'jonarrien/telescope-cmdline.nvim'},
     {    
       'numToStr/Comment.nvim',
+      lazy = true, 
+      keys = {'<leader>/', '<leader>u'},
       config = function()
         require('Comment').setup()
       end,
@@ -51,186 +59,17 @@ require("lazy").setup({
         "hrsh7th/cmp-buffer",      -- Buffer completion
         "hrsh7th/cmp-path",        -- Path completion
       },
-      config = function()
-        local cmp = require("cmp")
-        local npairs = require("nvim-autopairs")
-        cmp.setup({
-          snippet = {
-            expand = function(args)
-              require("luasnip").lsp_expand(args.body)  -- Use LuaSnip
-            end,
-          },
-          mapping = cmp.mapping.preset.insert({
-            ["<C-b>"] = cmp.mapping.scroll_docs(-4),      -- Scroll docs up with Ctrl-b
-            ["<Tab>"] = cmp.mapping(function(fallback)
-              if cmp.visible() then
-                cmp.select_next_item()  -- Select next completion item
-              else
-                cmp.mapping.scroll_docs(4)(fallback)  -- Scroll docs down
-              end
-            end, { "i", "s" }),  -- Enable in insert and select modes
-            ["<C-Space>"] = cmp.mapping.complete(),       -- Trigger completion
-            ["<C-e>"] = cmp.mapping.abort(),              -- Abort completion
-            ["<CR>"] = cmp.mapping.confirm({ select = true }),  -- Confirm completion
-          }),
-          sources = cmp.config.sources({
-            { name = "nvim_lsp" },
-            { name = "luasnip" },
-            { name = "buffer" },
-            { name = "path" },
-          }),
-          formatting = {
-            format = function(entry, vim_item)
-              vim_item.menu = string.format('   %s', vim_item.kind)
-              vim_item.kind = ({
-                Text = '',
-                Method = 'ƒ',
-                Function = '',
-                Constructor = '',
-                Field = 'ﰠ',
-                Variable = '',
-                Class = '',
-                Interface = 'ﰮ',
-                Module = '',
-                Property = '',
-                Unit = '',
-                Value = '',
-                Enum = '了',
-                Keyword = '',
-                Snippet = '﬌',
-                Color = '',
-                File = '',
-                Reference = '',
-                Folder = '',
-                EnumMember = '',
-                Constant = '',
-                Struct = '',
-                Event = '',
-                Operator = 'ﬦ',
-                TypeParameter = ''
-              })[vim_item.kind]
-              return vim_item
-            end,
-          },
-          -- Automatically add brackets for function completions
-          confirm_opts = {
-            behavior = cmp.ConfirmBehavior.Replace,
-            select = true,
-          },
-          experimental = {
-            ghost_text = true,
-          },
-
-        })
-
-        -- Setup nvim-autopairs
-        npairs.setup({
-          check_ts = true,
-        })
-
-        -- Integrate nvim-autopairs with nvim-cmp for automatic function parentheses
-        local cmp_autopairs = require('nvim-autopairs.completion.cmp')
-          cmp.event:on(
-            'confirm_done',
-            cmp_autopairs.on_confirm_done()
-        )
-
-        -- Command-line mode setup
-        cmp.setup.cmdline(":", {
-          sources = cmp.config.sources({
-            { name = "path" },
-            { name = "cmdline" },
-          }),
-        })
-      end,
     },
     {
-      "nvim-treesitter/nvim-treesitter",
-    },
-    {
-      -- {{{ Define the Harpoon lazy.vim specificaiton.
-
       "ThePrimeagen/harpoon",
       enabled = true,
       event = {"InsertEnter", "CmdLineEnter"},
       branch = "harpoon2",
-      dependencies = {
-        "nvim-lua/plenary.nvim",
-        "nvim-telescope/telescope.nvim",
-      },
-
-      -- ----------------------------------------------------------------------- }}}
-      -- {{{ Define events to load Harpoon.
-
-      keys = function()
-        local harpoon = require("harpoon")
-        local conf = require("telescope.config").values
-
-        local function toggle_telescope(harpoon_files)
-          local file_paths = {}
-          for _, item in ipairs(harpoon_files.items) do
-            table.insert(file_paths, item.value)
-          end
-          require("telescope.pickers").new({}, {
-            prompt_title = "Harpoon",
-            finder = require("telescope.finders").new_table({
-              results = file_paths,
-            }),
-            previewer = conf.file_previewer({}),
-            sorter = conf.generic_sorter({}),
-          }):find()
-        end
-
-
-        return {
-          -- Harpoon marked files 1 through 4
-          {"<a-1>", function() harpoon:list():select(1) end, desc ="Harpoon buffer 1"},
-          {"<a-2>", function() harpoon:list():select(2) end, desc ="Harpoon buffer 2"},
-          {"<a-3>", function() harpoon:list():select(3) end, desc ="Harpoon buffer 3"},
-          {"<a-4>", function() harpoon:list():select(4) end, desc ="Harpoon buffer 4"},
-
-          -- Harpoon next and previous.
-          {"<a-5>", function() harpoon:list():next() end, desc ="Harpoon next buffer"},
-          {"<a-6>", function() harpoon:list():prev() end, desc ="Harpoon prev buffer"},
-
-          -- Harpoon user interface.
-          {"<a-7>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, desc ="Harpoon Toggle Menu"},
-          {"<a-8>", function() harpoon:list():add() end, desc ="Harpoon add file"},
-
-          -- Use Telescope as Harpoon user interface.
-          {"<a-9>", function() toggle_telescope(harpoon:list() )end, desc ="Open Harpoon window"},
-        }
-      end,
-
-      -- ----------------------------------------------------------------------- }}}
-      -- {{{ Use Harpoon defaults or my customizations.
-
-      opts = function(_, opts)
-        opts.settings = {
-          save_on_toggle = false,
-          sync_on_ui_close = false,
-          save_on_change = true,
-          enter_on_sendcmd = false,
-          tmux_autoclose_windows = false,
-          excluded_filetypes = { "harpoon", "alpha", "dashboard", "gitcommit" },
-          mark_branch = false,
-          key = function()
-            return vim.loop.cwd()
-          end
-        }
-      end,
-
-      -- ----------------------------------------------------------------------- }}}
-      -- {{{ Configure Harpoon.
-
-      config = function(_, opts)
-        require("harpoon").setup(opts)
-      end,
-
-      -- ----------------------------------------------------------------------- }}}
+      dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim", },
     },
     {
-      'nvim-telescope/telescope.nvim', tag = '0.1.8',
+      'nvim-telescope/telescope.nvim', 
+      tag = '0.1.8',
       dependencies = { 'nvim-lua/plenary.nvim' }
     },
     {
@@ -238,97 +77,15 @@ require("lazy").setup({
       dependencies = {
         "preservim/vimux"
       },
-      config = function()
-        vim.keymap.set("n", "<leader>t", ":TestNearest<CR>", {})
-        vim.keymap.set("n", "<leader>T", ":TestFile<CR>", {})
-        vim.keymap.set("n", "<leader>a", ":TestSuite<CR>", {})
-        vim.keymap.set("n", "<leader>l", ":TestLast<CR>", {})
-        vim.keymap.set("n", "<leader>g", ":TestVisit<CR>", {})
-        vim.cmd("let test#strategy = 'vimux'")
-      end,
     },
     {
       "kylechui/nvim-surround",
       version = "*", -- Use for stability; omit to use `main` branch for the latest features
       event = "VeryLazy",
-      config = function()
-        require("nvim-surround").setup({
-          -- Configuration here, or leave empty to use defaults
-        })
-      end
     },
     {
       "nvimdev/dashboard-nvim",
       event = "VimEnter",
-      opts = function()
-        local logo = [[
-        ██╗      █████╗ ███████╗██╗   ██╗██╗   ██╗██╗███╗   ███╗          Z
-        ██║     ██╔══██╗╚══███╔╝╚██╗ ██╔╝██║   ██║██║████╗ ████║      Z    
-        ██║     ███████║  ███╔╝  ╚████╔╝ ██║   ██║██║██╔████╔██║   z       
-        ██║     ██╔══██║ ███╔╝    ╚██╔╝  ╚██╗ ██╔╝██║██║╚██╔╝██║ z         
-        ███████╗██║  ██║███████╗   ██║    ╚████╔╝ ██║██║ ╚═╝ ██║           
-        ╚══════╝╚═╝  ╚═╝╚══════╝   ╚═╝     ╚═══╝  ╚═╝╚═╝     ╚═╝           
-        ]]
-
-        logo = string.rep("\n", 8) .. logo .. "\n\n"
-
-        local opts = {
-          theme = "doom",
-          hide = {
-            -- this is taken care of by lualine
-            -- enabling this messes up the actual laststatus setting after loading a file
-            statusline = false,
-          },
-          config = {
-            header = vim.split(logo, "\n"),
-            -- stylua: ignore
-            center = {
-              { action = function() 
-                local dir = vim.fn.input("Enter directory: ", "", "dir")
-                if dir ~= "" then
-                  vim.cmd("cd " .. dir)
-                  print("Switched to directory: " .. dir)
-                else
-                  print("No directory entered.")
-                end
-              end,                                     desc = " Open directory",     icon = " ", key = "o" },
-              { action = function() vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(":Telescope find_files<cr>", true, false, true), "n", true) end,                           desc = " Find File",       icon = " ", key = "f" },
-              { action = "ene | startinsert",                              desc = " New File",        icon = " ", key = "n" },
-              { action = function() vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(":Telescope oldfiles<cr>", true, false, true), "n", true) end,                 desc = " Recent Files",    icon = " ", key = "r" },
-              { action = function() vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(":Telescope live_grep<cr>", true, false, true), "n", true) end,                desc = " Find Text",       icon = " ", key = "g" },
-              { action = function() vim.cmd("cd ~/.config/nvim") end,              desc = " Config",          icon = " ", key = "c" },
-              { action = function() vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(":lua require('persistence').load()<cr>", true, false, true), "n", true) end,              desc = " Restore Session", icon = " ", key = "s" },
-              { action = function() vim.api.nvim_input("<cmd>Lazy<cr>") end,                                           desc = " Lazy",            icon = "󰒲 ", key = "l" },
-              { action = function() vim.api.nvim_input("<cmd>qa<cr>") end, desc = " Quit",            icon = " ", key = "q" },
-            },
-            footer = function()
-              local stats = require("lazy").stats()
-              local ms = (math.floor(stats.startuptime * 100 + 0.5) / 100)
-              return { "⚡ Neovim loaded " .. stats.loaded .. "/" .. stats.count .. " plugins in " .. ms .. "ms" }
-            end,
-          },
-        }
-
-        for _, button in ipairs(opts.config.center) do
-          button.desc = button.desc .. string.rep(" ", 43 - #button.desc)
-          button.key_format = "  %s"
-        end
-
-        -- open dashboard after closing lazy
-        if vim.o.filetype == "lazy" then
-          vim.api.nvim_create_autocmd("WinClosed", {
-            pattern = tostring(vim.api.nvim_get_current_win()),
-            once = true,
-            callback = function()
-              vim.schedule(function()
-                vim.api.nvim_exec_autocmds("UIEnter", { group = "dashboard" })
-              end)
-            end,
-          })
-        end
-
-        return opts
-      end
     },
     {
       "folke/persistence.nvim",
@@ -387,4 +144,3 @@ require("lazy").setup({
   -- automatically check for plugin updates
   checker = { enabled = false },
 })
-
