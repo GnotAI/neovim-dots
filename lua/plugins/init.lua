@@ -6,7 +6,6 @@ return {
   require("plugins.tlscp_cmdline"),
   require("plugins.smoothcursor"),
   require("plugins.nvim-cmp"),
-  require("plugins.harpoon"),
   require("plugins.vim-test"),
   require("plugins.dashboard"),
 }
