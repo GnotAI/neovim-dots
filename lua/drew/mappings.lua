@@ -12,9 +12,9 @@ vim.api.nvim_set_keymap('n', ':', ':Telescope cmdline<CR>', { noremap = true, de
 vim.api.nvim_set_keymap('n', ';', ':Telescope cmdline<CR>', { noremap = true, desc = "Cmdline" })
 
 -- Floaterm mappings
-vim.api.nvim_set_keymap('n', '<A-i>', ':FloatermToggle<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('i', '<A-i>', '<Esc>:FloatermToggle<CR>', { noremap = true, silent = true }) -- Insert mode
-vim.api.nvim_set_keymap('t', '<A-i>', '<C-\\><C-n>:FloatermToggle<CR>', { noremap = true, silent = true }) -- Terminal mode
+-- vim.api.nvim_set_keymap('n', '<A-i>', ':FloatermToggle<CR>', { noremap = true, silent = true })
+-- vim.api.nvim_set_keymap('i', '<A-i>', '<Esc>:FloatermToggle<CR>', { noremap = true, silent = true }) -- Insert mode
+-- vim.api.nvim_set_keymap('t', '<A-i>', '<C-\\><C-n>:FloatermToggle<CR>', { noremap = true, silent = true }) -- Terminal mode
 
 -- Pane/Window work
 vim.keymap.set("n", "<leader>q", "<C-w>c")
@@ -48,7 +48,5 @@ vim.keymap.set('n', '<leader>fb', tlscp.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', tlscp.help_tags, { desc = 'Telescope help tags' })
 
 -- Comment api mappings
-vim.api.nvim_set_keymap('n', '<leader>/', ':lua require("Comment.api").toggle.linewise.current()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>u', ':lua require("Comment.api").uncomment.linewise.current()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<leader>/', ':lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<leader>u', ':lua require("Comment.api").uncomment.linewise(vim.fn.visualmode())<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>c', ':lua require("Comment.api").toggle.linewise.current()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<leader>c', ':lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>', { noremap = true, silent = true })
