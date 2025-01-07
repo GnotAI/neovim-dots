@@ -9,10 +9,8 @@ require("nvim-autopairs").setup({
     keys = "qwertyuiopzxcvbnmasdfghjkl",
     check_comma = true,
   },
-})
 
 -- Automatically pairs brackets, quotes, etc. when typing
-require("nvim-autopairs").setup({
   map_cr = true,  -- Enable Enter key completion (e.g., for closing brackets)
   map_complete = true,
 })

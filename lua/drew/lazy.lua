@@ -25,6 +25,7 @@ require("lazy").setup({
   spec = {
     -- import your plugins
     { "windwp/nvim-autopairs" },
+    { "windwp/nvim-ts-autotag" },
     { "nvim-lualine/lualine.nvim" }, 
     {'jonarrien/telescope-cmdline.nvim'},
     { "gen740/SmoothCursor.nvim" },

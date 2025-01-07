@@ -7,15 +7,15 @@ cmp.setup({
     end,
   },
   mapping = cmp.mapping.preset.insert({
-    ["<C-b>"] = cmp.mapping.scroll_docs(-4),      -- Scroll docs up with Ctrl-b
-    ["<Tab>"] = cmp.mapping(function(fallback)
+    ["<C-l>"] = cmp.mapping.scroll_docs(-4),      -- Scroll docs up with Ctrl-l
+    ["<C-h>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()  -- Select next completion item
       else
         cmp.mapping.scroll_docs(4)(fallback)  -- Scroll docs down
       end
     end, { "i", "s" }),  -- Enable in insert and select modes
-    ["<C-Space>"] = cmp.mapping.complete(),       -- Trigger completion
+    ["<A-c>"] = cmp.mapping.complete(),       -- Trigger completion
     ["<C-e>"] = cmp.mapping.abort(),              -- Abort completion
     ["<CR>"] = cmp.mapping.confirm({ select = true }),  -- Confirm completion
   }),

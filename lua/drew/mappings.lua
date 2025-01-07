@@ -46,7 +46,8 @@ vim.keymap.set('n', '<leader>ff', tlscp.find_files, { desc = 'Telescope find fil
 vim.keymap.set('n', '<leader>fw', tlscp.live_grep, { desc = 'Telescope live grep' })
 vim.keymap.set('n', '<leader>fb', tlscp.buffers, { desc = 'Telescope buffers' })
 vim.keymap.set('n', '<leader>fh', tlscp.help_tags, { desc = 'Telescope help tags' })
-
+vim.keymap.set('n', '<leader>fr', ":lua Snacks.dashboard.pick('oldfiles')<CR>", { desc = 'Telescope recent files' })
+ 
 -- Comment api mappings
-vim.api.nvim_set_keymap('n', '<leader>c', ':lua require("Comment.api").toggle.linewise.current()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<leader>c', ':lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader><leader>', ':lua require("Comment.api").toggle.linewise.current()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('v', '<leader><leader>', ':lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>', { noremap = true, silent = true })
