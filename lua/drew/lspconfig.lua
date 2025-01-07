@@ -4,9 +4,8 @@ local autocmd = vim.api.nvim_create_autocmd
 local lsp_servers = {
     go = { lsp = 'gopls', pattern = 'go' },
     python = { lsp = 'pylsp', pattern = 'python' },
-    javascript = { lsp = 'eslint', pattern = 'javascript' },
-    typescript = { lsp = 'eslint', pattern = 'typescript' },
-    html = { lsp = 'html', pattern = {'html', 'htmldjango'} },
+    javascript = { lsp = 'typescript-language-server', pattern = { 'javascript', 'typescript' } },
+    html = { lsp = 'vscode-html-languageserver', pattern = {'html', 'htmldjango'} },
     tailwindcss = { lsp = 'tailwindcss', pattern = {'html', 'htmldjango'} }, -- Can also use 'css' or 'javascript'
     c = { lsp = 'clangd', pattern = 'c' },
     cpp = { lsp = 'clangd', pattern = 'cpp' },
@@ -23,8 +22,6 @@ local function attach_lsp(filetype)
 
     if filetype == 'go' then
         root_dir = vim.fs.dirname(vim.fs.find({ 'go.mod', 'go.work' }, { upward = true })[1])
-    elseif filetype == 'typescript' or filetype == 'javascript' then
-        root_dir = vim.fs.dirname(vim.fs.find({ 'tsconfig.json', 'package.json' }, { upward = true })[1])
     elseif filetype == 'html' or filetype == 'tailwindcss' or filetype == 'htmldjango' then
         root_dir = vim.fs.dirname(vim.fs.find({ 'tailwind.config.js', 'index.html', 'package.json' }, { upward = true })[1]) or vim.fn.getcwd()
     elseif filetype == 'c' or filetype == 'cpp' then
@@ -33,10 +30,16 @@ local function attach_lsp(filetype)
         root_dir = vim.fn.getcwd()
     end
 
+    local cmd = { "typescript-language-server", "--stdio" }
+    if filetype ~= 'javascript' and filetype ~= 'typescript' then
+        cmd = { server.lsp }  -- Fallback to the server for other filetypes
+    end
+
     local client = vim.lsp.start({
         name = server.lsp,
-        cmd = { server.lsp },
+        cmd = cmd,
         root_dir = root_dir,
+        capabilities = vim.lsp.protocol.make_client_capabilities(),
     })
 
     vim.lsp.buf_attach_client(0, client)
