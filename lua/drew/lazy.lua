@@ -166,7 +166,6 @@ require("lazy").setup({
                   end,
                   icon = " ",
                   height = 8,
-                  enabled = true,
                 },
                 {
                   icon = " ",
@@ -177,14 +176,12 @@ require("lazy").setup({
                     vim.fn.jobstart("gh pr list --web", { detach = true })
                   end,
                   height = 8,
-                  enabled = true,
                 },
                 {
                   icon = " ",
                   title = "Git Status",
                   cmd = "git --no-pager diff --stat -B -M -C",
                   height = 11,
-                  enabled = true,
                 },
               }
               return vim.tbl_map(function(cmd)
