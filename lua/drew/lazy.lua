@@ -30,10 +30,36 @@ require("lazy").setup({
     { "gen740/SmoothCursor.nvim" },
     { "nvim-treesitter/nvim-treesitter" },
     {
+      "norcalli/nvim-colorizer.lua",
+      lazy = false, -- Load immediately
+      config = function()
+        require('colorizer').setup({
+          '*', -- Highlight all file types
+          css = { rgb_fn = true; }, -- Enable `rgb()` and `rgba()` highlighting for CSS
+          html = { names = true; }, -- Disable named color support in HTML
+        }, {
+          mode = 'background', -- Display color in the background of the text
+        })
+      end,
+    },
+    {
         'huy-hng/anyline.nvim',
         dependencies = { 'nvim-treesitter/nvim-treesitter' },
         config = true,
         event = 'VeryLazy',
+    },
+    {
+      '3rd/image.nvim',
+      config = function()
+        require('image').setup {
+          backend = 'viu', -- Use 'viu' as the backend
+          integrations = {
+            kitty = {
+              enabled = true, -- Set to true if you use the Kitty terminal
+            },
+          },
+        }
+      end,
     },
     {
       "neanias/everforest-nvim",
