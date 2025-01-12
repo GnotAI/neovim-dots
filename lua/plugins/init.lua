@@ -7,4 +7,5 @@ return {
   require("plugins.smoothcursor"),
   require("plugins.nvim-cmp"),
   require("plugins.vim-test"),
+  require("plugins.colorizer"),
 }

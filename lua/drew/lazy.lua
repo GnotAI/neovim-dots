@@ -31,16 +31,6 @@ require("lazy").setup({
     { "nvim-treesitter/nvim-treesitter" },
     {
       "norcalli/nvim-colorizer.lua",
-      lazy = false, -- Load immediately
-      config = function()
-        require('colorizer').setup({
-          '*', -- Highlight all file types
-          css = { rgb_fn = true; }, -- Enable `rgb()` and `rgba()` highlighting for CSS
-          html = { names = true; }, -- Disable named color support in HTML
-        }, {
-          mode = 'background', -- Display color in the background of the text
-        })
-      end,
     },
     {
         'huy-hng/anyline.nvim',
@@ -75,7 +65,7 @@ require("lazy").setup({
     {    
       'numToStr/Comment.nvim',
       lazy = true, 
-      keys = {'<leader>c'},
+      keys = {'<leader>space'},
       config = function()
         require('Comment').setup()
       end,
