@@ -7,6 +7,6 @@ require("everforest").setup({
   ui_contrast = "high",       -- Options: 'low', 'normal', 'high'
 })
 
--- Colorscheme to use
+-- colorscheme to use
 vim.cmd("colorscheme noctis_minimus")
 

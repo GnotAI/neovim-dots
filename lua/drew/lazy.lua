@@ -32,6 +32,10 @@ require("lazy").setup({
     { "norcalli/nvim-colorizer.lua" },
     { 'talha-akram/noctis.nvim' },
     { "HiPhish/nvim-ts-rainbow2" },
+    { 
+      "windwp/nvim-ts-autotag",
+      config = true,
+    },
     {
       "neanias/everforest-nvim",
       version = "*",

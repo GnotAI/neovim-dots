@@ -1,7 +1,7 @@
 -- Lualine configuration
 require("lualine").setup({
   options = {
-    theme = "noctis_minimus",
+    theme = "auto",
     component_separators = '|',
     section_separators = { left = '', right = '' },
   },
