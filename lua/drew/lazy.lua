@@ -29,28 +29,9 @@ require("lazy").setup({
     {'jonarrien/telescope-cmdline.nvim'},
     { "gen740/SmoothCursor.nvim" },
     { "nvim-treesitter/nvim-treesitter" },
-    {
-      "norcalli/nvim-colorizer.lua",
-    },
-    {
-        'huy-hng/anyline.nvim',
-        dependencies = { 'nvim-treesitter/nvim-treesitter' },
-        config = true,
-        event = 'VeryLazy',
-    },
-    {
-      '3rd/image.nvim',
-      config = function()
-        require('image').setup {
-          backend = 'viu', -- Use 'viu' as the backend
-          integrations = {
-            kitty = {
-              enabled = true, -- Set to true if you use the Kitty terminal
-            },
-          },
-        }
-      end,
-    },
+    { "norcalli/nvim-colorizer.lua" },
+    { 'talha-akram/noctis.nvim' },
+    { "HiPhish/nvim-ts-rainbow2" },
     {
       "neanias/everforest-nvim",
       version = "*",
