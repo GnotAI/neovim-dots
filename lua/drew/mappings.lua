@@ -2,9 +2,11 @@ local map = vim.keymap.set
 
 -- General mappings
 map("n", ";", ":", { desc = "CMD enter command mode" })
-map("i", "jk", "<ESC>")
+map("i", "jj", "<ESC>")
+vim.api.nvim_set_keymap('n', '<leader>Q', ':qa!<CR>', { noremap = true, desc = "Cmdline" })
+vim.api.nvim_set_keymap('n', '<leader>ws', ':wa!<CR>', { noremap = true, desc = "Cmdline" })
 
-vim.keymap.set("n", "<leader>pv", vim.cmd.Ex)
+map("n", "<leader>pv", vim.cmd.Ex)
 vim.api.nvim_set_keymap('n', '<Esc>', ':let @/ = ""<CR>:nohlsearch<CR>', { noremap = true, silent = true })
 
 -- Telescope cmdline mappings
@@ -17,12 +19,12 @@ vim.api.nvim_set_keymap('n', ';', ':Telescope cmdline<CR>', { noremap = true, de
 -- vim.api.nvim_set_keymap('t', '<A-i>', '<C-\\><C-n>:FloatermToggle<CR>', { noremap = true, silent = true }) -- Terminal mode
 
 -- Pane/Window work
-vim.keymap.set("n", "<leader>q", "<C-w>c")
-vim.keymap.set("n", "<leader>v", "<C-w>v")
-vim.keymap.set('n', '<C-h>', '<C-w>h', {silent = true})
-vim.keymap.set('n', '<C-j>', '<C-w>j', {silent = true})
-vim.keymap.set('n', '<C-k>', '<C-w>k', {silent = true})
-vim.keymap.set('n', '<C-l>', '<C-w>l', {silent = true})
+map("n", "<leader>q", "<C-w>c")
+map("n", "<leader>v", "<C-w>v")
+map('n', '<C-h>', '<C-w>h', {silent = true})
+map('n', '<C-j>', '<C-w>j', {silent = true})
+map('n', '<C-k>', '<C-w>k', {silent = true})
+map('n', '<C-l>', '<C-w>l', {silent = true})
 
 -- Move cursor around vertically and center
 vim.api.nvim_set_keymap("n", "<C-d>", "<C-d>zz", { noremap = true, silent = true, desc = "Scroll down and center" })
@@ -35,19 +37,21 @@ vim.api.nvim_set_keymap("n", "n", "nzz", { noremap = true, silent = true, desc =
 vim.api.nvim_set_keymap("n", "N", "Nzz", { noremap = true, silent = true, desc = "Previous search result and center" })
 
 -- Move line (s) vertically 
-vim.keymap.set('n', '<A-j>', ':m .+1<CR>==', { noremap = true, silent = true })
-vim.keymap.set('n', '<A-k>', ':m .-2<CR>==', { noremap = true, silent = true })
-vim.keymap.set('v', '<A-j>', ":m '>+1<CR>==", { noremap = true, silent = true })
-vim.keymap.set('v', '<A-k>', ":m '<-2<CR>==", { noremap = true, silent = true })
+map('n', '<A-j>', ':m .+1<CR>==', { noremap = true, silent = true })
+map('n', '<A-k>', ':m .-2<CR>==', { noremap = true, silent = true })
+map('v', '<A-j>', ":m '>+1<CR>==", { noremap = true, silent = true })
+map('v', '<A-k>', ":m '<-2<CR>==", { noremap = true, silent = true })
 
 -- Telescope mappings
 local tlscp = require('telescope.builtin')
-vim.keymap.set('n', '<leader>ff', tlscp.find_files, { desc = 'Telescope find files' })
-vim.keymap.set('n', '<leader>fw', tlscp.live_grep, { desc = 'Telescope live grep' })
-vim.keymap.set('n', '<leader>fb', tlscp.buffers, { desc = 'Telescope buffers' })
-vim.keymap.set('n', '<leader>fh', tlscp.help_tags, { desc = 'Telescope help tags' })
-vim.keymap.set('n', '<leader>fr', ":lua Snacks.dashboard.pick('oldfiles')<CR>", { desc = 'Telescope recent files' })
+map('n', '<leader>ff', tlscp.find_files, { desc = 'Telescope find files' })
+map('n', '<leader>fw', tlscp.live_grep, { desc = 'Telescope live grep' })
+map('n', '<leader>fb', tlscp.buffers, { desc = 'Telescope buffers' })
+map('n', '<leader>fh', tlscp.help_tags, { desc = 'Telescope help tags' })
+map('n', '<leader>fr', ":lua Snacks.dashboard.pick('oldfiles')<CR>", { desc = 'Telescope recent files' })
  
 -- Comment api mappings
 vim.api.nvim_set_keymap('n', '<leader><leader>', ':lua require("Comment.api").toggle.linewise.current()<CR>', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('v', '<leader><leader>', ':lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>', { noremap = true, silent = true })
+
+
