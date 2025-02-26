@@ -8,7 +8,7 @@ cmp.setup({
   },
   mapping = cmp.mapping.preset.insert({
     ["<C-l>"] = cmp.mapping.scroll_docs(-4),      -- Scroll docs up with Ctrl-l
-    ["<C-h>"] = cmp.mapping(function(fallback)
+    ["<C-j>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()  -- Select next completion item
       else

@@ -2,9 +2,12 @@ local map = vim.keymap.set
 
 -- General mappings
 map("n", ";", ":", { desc = "CMD enter command mode" })
+map("n", "<A-h>", "_")
+map("n", "<A-l>", "$")
 map("i", "jj", "<ESC>")
 vim.api.nvim_set_keymap('n', '<leader>Q', ':qa!<CR>', { noremap = true, desc = "Cmdline" })
 vim.api.nvim_set_keymap('n', '<leader>ws', ':wa!<CR>', { noremap = true, desc = "Cmdline" })
+vim.api.nvim_set_keymap("n", "<leader>a", "ggVG", { noremap = true, silent = true, desc = "Select all" })
 
 map("n", "<leader>pv", vim.cmd.Ex)
 vim.api.nvim_set_keymap('n', '<Esc>', ':let @/ = ""<CR>:nohlsearch<CR>', { noremap = true, silent = true })
