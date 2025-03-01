@@ -16,6 +16,28 @@
 -- end
 --
 
+_G.custom_winbar = function()
+  local filepath = vim.fn.expand('%:p') -- Get full file path
+  local filename = vim.fn.expand('%:t') -- Get only the filename
+  local filetype = vim.bo.filetype       -- Get file type
+
+  -- Replace `/` with ` > `
+  local formatted_path = filepath:gsub('^/', ''):gsub('/', ' > ')
+
+  -- Get file type icon
+  local devicons = require('nvim-web-devicons')
+  local icon = devicons.get_icon(filename, vim.fn.expand('%:e'), { default = true })
+
+  return formatted_path
+end
+
+-- Set the winbar globally so it stays constant in all splits
+vim.o.winbar = "%{%v:lua.custom_winbar()%}"
+
+-- Set winbar highlight to match the normal editor background
+vim.api.nvim_command("highlight WinBar guibg=NONE guifg=NONE")
+vim.api.nvim_command("highlight WinBarNC guibg=NONE guifg=NONE") 
+
 local function lsp_name()
     local clients = vim.lsp.get_active_clients({ bufnr = vim.api.nvim_get_current_buf() })
     if #clients == 0 then
@@ -38,7 +60,7 @@ local function path()
 		local oil_pattern = "oil://" .. vim.fn.getcwd()
 		sub_path = sub_path:gsub(oil_pattern, "")
 	else
-		pwd = pwd .. "/"
+		pwd = pwd .. ">"
 	end
 
 	if sub_path:len() > 40 then
@@ -47,30 +69,13 @@ local function path()
 	return pwd .. sub_path
 end
 
--- Custom noctis_minimus theme for lualine
-local noctis_minimus = {
-  normal = {
-    a = { fg = '#ffffff', bg = '#1e1e28', gui = 'bold' },
-    b = { fg = '#c5c8c6', bg = '#282a36' },
-    c = { fg = '#ffffff', bg = '#1e1e28' },
-  },
-  insert = { a = { fg = '#ffffff', bg = '#519f50', gui = 'bold' } },
-  visual = { a = { fg = '#ffffff', bg = '#cc241d', gui = 'bold' } },
-  replace = { a = { fg = '#ffffff', bg = '#d65d0e', gui = 'bold' } },
-  command = { a = { fg = '#ffffff', bg = '#458588', gui = 'bold' } },
-  inactive = {
-    a = { fg = '#c5c8c6', bg = '#282a36', gui = 'bold' },
-    b = { fg = '#c5c8c6', bg = '#1e1e28' },
-    c = { fg = '#c5c8c6', bg = '#1e1e28' },
-  },
-}
-
 -- Lualine configuration
 require("lualine").setup({
   options = {
-    theme = noctis_minimus,
+    theme = everforest,
     component_separators = '|',
     section_separators = { left = '', right = '' },
+    globalstatus = true,
   },
   sections = {
     lualine_a = {
@@ -78,29 +83,13 @@ require("lualine").setup({
     },
     lualine_b = { 'branch', 'diff' },
     lualine_c = {
-              {
-                -- get_project_root,
-                path,
-                icon = " ",
-                separator = "",
-              },
-              {
-                "filetype",
-                icon_only = true,
-                padding = { left = 2, right = 0 },
-              },
-              {
-                "filename",
-                file_status = true, -- displays file status (readonly status, modified status)
-                path = 0, -- Only filename
-                symbols = {
-                  newfile = "", -- Icon to show when the file is new.
-                  readonly = "", -- Icon to show when the file is read only.
-                  unnamed = "", -- No icon to show when the file is unnamed.
-                  modified = "", -- Icon to show when the file is modified.
-                },
-              },
-              "diagnostics",
+              -- {
+              --   -- get_project_root,
+              --   path,
+              --   icon = " ",
+              --   separator = "",
+              -- },
+             "diagnostics",
               {
                 function()
                   local bufnr = vim.api.nvim_get_current_buf()
@@ -116,12 +105,13 @@ require("lualine").setup({
                 icon = " ",
                 lsp_name,
               },
-              "progress",
+               "progress",
             },
     lualine_z = {
       { 'location', separator = { right = '' }, left_padding = 2 },
     },
   },
+
   -- inactive_sections = {
   --   lualine_a = { 'filename' },
   --   lualine_b = {},

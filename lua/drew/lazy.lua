@@ -41,6 +41,20 @@ require("lazy").setup({
       config = true,
     },
     {
+      "aserowy/tmux.nvim",
+      config = function()
+        local tmux = require("tmux")
+        tmux.setup()
+      end,
+    },
+    {
+      "vimpostor/vim-tpipeline",
+      config = function()
+        vim.g.tpipeline_restore = 1
+        vim.g.tpipeline_clearstl = 1
+      end,
+    },
+    {
       "neanias/everforest-nvim",
       version = "*",
       lazy = false,

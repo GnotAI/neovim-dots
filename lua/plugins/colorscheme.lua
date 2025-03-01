@@ -8,5 +8,5 @@ require("everforest").setup({
 })
 
 -- colorscheme to use
-vim.cmd("colorscheme noctis_minimus")
+vim.cmd("colorscheme everforest")
 
