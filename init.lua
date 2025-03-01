@@ -10,7 +10,6 @@ o.number = true
 o.swapfile = false
 o.relativenumber = true
 o.termguicolors = true
-o.guicursor = "n-v-c-sm-i-ci-ve-cr:block"
 o.undofile = true  -- Turn on persistent undo
 o.undodir = os.getenv("HOME") .. "/.config/nvim/undo"  -- Set the undo directory
 
