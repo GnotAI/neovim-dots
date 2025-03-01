@@ -38,6 +38,27 @@ vim.o.winbar = "%{%v:lua.custom_winbar()%}"
 vim.api.nvim_command("highlight WinBar guibg=NONE guifg=NONE")
 vim.api.nvim_command("highlight WinBarNC guibg=NONE guifg=NONE") 
 
+local function get_tmux_info()
+  local handle = io.popen("tmux display-message -p '#S '")
+  local session_name = handle and handle:read("*a") or "No Tmux"
+  if handle then handle:close() end
+
+  -- Get all windows in the session, marking the active one
+  local handle_windows = io.popen("tmux list-windows -F '#I:#W#{?window_active,* , }'")
+  local windows = handle_windows and handle_windows:read("*a") or "No Windows"
+  if handle_windows then handle_windows:close() end
+
+  -- Format the window list
+  windows = windows:gsub("\n", " ") -- Separate windows with " | "
+
+  return " " ..  session_name:gsub('\n', " ") .. windows  
+end
+
+local function getTime()
+  -- Get the fully rendered status-right
+  return os.date("%H:%M %D")
+end
+
 local function lsp_name()
     local clients = vim.lsp.get_active_clients({ bufnr = vim.api.nvim_get_current_buf() })
     if #clients == 0 then
@@ -90,6 +111,7 @@ require("lualine").setup({
               --   separator = "",
               -- },
              "diagnostics",
+             { get_tmux_info },
               {
                 function()
                   local bufnr = vim.api.nvim_get_current_buf()
@@ -97,7 +119,7 @@ require("lualine").setup({
                 end,
               },
             },
-    lualine_x = { 'encoding' },
+    lualine_x = { getTime, 'encoding' },
     lualine_y = {
               "filetype",
               {
