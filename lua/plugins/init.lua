@@ -11,4 +11,5 @@ return {
   require("plugins.comment"),
   require("plugins.twilight"),
   require("plugins.harpoon"),
+  require("plugins.multicursor"),
 }

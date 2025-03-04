@@ -25,17 +25,21 @@ require("lazy").setup({
   spec = {
     -- import your plugins
     { "windwp/nvim-autopairs" },
-    {
-      "nvim-lualine/lualine.nvim",
-      dependencies = { "nvim-tree/nvim-web-devicons" },
-      extensions = { "quickfix", "trouble", "oil" },
-    },
     {'jonarrien/telescope-cmdline.nvim'},
     { "gen740/SmoothCursor.nvim" },
     { "nvim-treesitter/nvim-treesitter" },
     { "norcalli/nvim-colorizer.lua" },
     { 'talha-akram/noctis.nvim' },
     { "HiPhish/nvim-ts-rainbow2" },
+    {
+      "jake-stewart/multicursor.nvim",
+      enabled = true,
+    },
+    {
+      "nvim-lualine/lualine.nvim",
+      dependencies = { "nvim-tree/nvim-web-devicons" },
+      extensions = { "quickfix", "trouble", "oil" },
+    },
     { 
       "windwp/nvim-ts-autotag",
       config = true,

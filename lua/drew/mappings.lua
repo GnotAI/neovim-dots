@@ -4,15 +4,10 @@ local function opts(desc, extra)
   return extra and vim.tbl_extend("force", default, extra) or default
 end
 
-vim.api.nvim_set_keymap('n', '<leader>Q', ':qa!<CR>', { noremap = true, desc = "Cmdline" })
 vim.api.nvim_set_keymap('n', '<leader>ws', ':wa!<CR>', { noremap = true, desc = "Cmdline" })
 vim.api.nvim_set_keymap("n", "<leader>a", "ggVG", { noremap = true, silent = true, desc = "Select all" })
 
 vim.api.nvim_set_keymap('n', '<Esc>', ':let @/ = ""<CR>:nohlsearch<CR>', { noremap = true, silent = true })
-
--- Telescope cmdline mappings
-vim.api.nvim_set_keymap('n', ':', ':Telescope cmdline<CR>', { noremap = true, desc = "Cmdline" })
-vim.api.nvim_set_keymap('n', ';', ':Telescope cmdline<CR>', { noremap = true, desc = "Cmdline" })
 
 -- Floaterm mappings
 -- vim.api.nvim_set_keymap('n', '<A-i>', ':FloatermToggle<CR>', { noremap = true, silent = true })
@@ -22,10 +17,6 @@ vim.api.nvim_set_keymap('n', ';', ':Telescope cmdline<CR>', { noremap = true, de
 -- Move cursor around vertically and center
 vim.api.nvim_set_keymap("n", "<C-f>", "<C-f>zz", { noremap = true, silent = true, desc = "Scroll up and center" })
 vim.api.nvim_set_keymap("n", "<C-b>", "<C-b>zz", { noremap = true, silent = true, desc = "Scroll up and center" })
-
--- Go to next/previous occurence of word and center
-vim.api.nvim_set_keymap("n", "n", "nzz", { noremap = true, silent = true, desc = "Next search result and center" })
-vim.api.nvim_set_keymap("n", "N", "Nzz", { noremap = true, silent = true, desc = "Previous search result and center" })
 
 -- Comment api mappings
 vim.api.nvim_set_keymap('n', '<leader><leader>', ':lua require("Comment.api").toggle.linewise.current()<CR>', { noremap = true, silent = true })
@@ -45,12 +36,16 @@ local keymaps = {
   -- General mappings
   { N, ";", ":", opts("CMD enter command mode" )},
   { N, "<A-h>", "_", opts("Go to beginning of line in normal mode")},
-  { N , "<A-l>", "$", opts("Go to end of line in normal mode")},
+  { N, "<A-l>", "$", opts("Go to end of line in normal mode")},
   { N, "<leader>pv", vim.cmd.Ex, opts("Open file whatever it's called")},
   { N, "<C-d>", "<C-d>zz", opts("Scroll down and center") },
   { N, "<C-u>", "<C-u>zz", opts("Scroll up and center") },
+  { N, ':', '<cmd>Telescope cmdline<CR>', opts("Opens cmdline")},
+  { N, ';', '<cmd>Telescope cmdline<CR>', opts("Opens cmdline")},
+  { N, "n", "nzz", opts("Previous search result and center" )},
+  { N, "N", "Nzz", opts("Previous search result and center" )},
 
-  { N_I, "qq", "<cmd>q<CR>", opts("Quick quit") },
+  { N_I, "qq", "<cmd>qa!<CR>", opts("Quick quit") },
 
   { I, "jj", "<ESC>", opts("Exits insert mode")},
   { I, "::", "<Esc>:", opts("Enter command mode in insert mode") },
@@ -83,9 +78,6 @@ local keymaps = {
   { N, "<C-A-j>", "yy]p", opts("Duplicate line down") },
   { V, "<C-A-k>", "yP", opts("Duplicate selection up") },
   { V, "<C-A-j>", "y]p", opts("Duplicate selection down") },
-
-  { N, "<A-q>", "<C-v>", opts("Block selection") },
-
 }
 
 for _, keymap in ipairs(keymaps) do
