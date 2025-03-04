@@ -29,7 +29,6 @@ require("lazy").setup({
     { "gen740/SmoothCursor.nvim" },
     { "nvim-treesitter/nvim-treesitter" },
     { "norcalli/nvim-colorizer.lua" },
-    { 'talha-akram/noctis.nvim' },
     { "HiPhish/nvim-ts-rainbow2" },
     {
       "jake-stewart/multicursor.nvim",

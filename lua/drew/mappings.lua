@@ -15,8 +15,8 @@ vim.api.nvim_set_keymap('n', '<Esc>', ':let @/ = ""<CR>:nohlsearch<CR>', { norem
 -- vim.api.nvim_set_keymap('t', '<A-i>', '<C-\\><C-n>:FloatermToggle<CR>', { noremap = true, silent = true }) -- Terminal mode
 
 -- Move cursor around vertically and center
-vim.api.nvim_set_keymap("n", "<C-f>", "<C-f>zz", { noremap = true, silent = true, desc = "Scroll up and center" })
-vim.api.nvim_set_keymap("n", "<C-b>", "<C-b>zz", { noremap = true, silent = true, desc = "Scroll up and center" })
+vim.api.nvim_set_keymap("n", "<C-f>", "zz<C-f>", { noremap = true, silent = true, desc = "Scroll up and center" })
+vim.api.nvim_set_keymap("n", "<C-b>", "zz<C-b>", { noremap = true, silent = true, desc = "Scroll up and center" })
 
 -- Comment api mappings
 vim.api.nvim_set_keymap('n', '<leader><leader>', ':lua require("Comment.api").toggle.linewise.current()<CR>', { noremap = true, silent = true })
@@ -38,12 +38,12 @@ local keymaps = {
   { N, "<A-h>", "_", opts("Go to beginning of line in normal mode")},
   { N, "<A-l>", "$", opts("Go to end of line in normal mode")},
   { N, "<leader>pv", vim.cmd.Ex, opts("Open file whatever it's called")},
-  { N, "<C-d>", "<C-d>zz", opts("Scroll down and center") },
-  { N, "<C-u>", "<C-u>zz", opts("Scroll up and center") },
   { N, ':', '<cmd>Telescope cmdline<CR>', opts("Opens cmdline")},
   { N, ';', '<cmd>Telescope cmdline<CR>', opts("Opens cmdline")},
-  { N, "n", "nzz", opts("Previous search result and center" )},
-  { N, "N", "Nzz", opts("Previous search result and center" )},
+  { N, "<C-d>", "zzzz<C-d>zz", opts("Scroll down while centered") },
+  { N, "<C-u>", "zzzz<C-u>zz", opts("Scroll up while centered") },
+  { N, "n", "zznzz", opts("Previous search result and center" )},
+  { N, "N", "zzNzz", opts("Previous search result and center" )},
 
   { N_I, "qq", "<cmd>qa!<CR>", opts("Quick quit") },
 
