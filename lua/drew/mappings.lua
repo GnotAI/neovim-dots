@@ -44,39 +44,39 @@ local tlscp = require('telescope.builtin')
 local keymaps = {
   -- General mappings
   { N, ";", ":", opts("CMD enter command mode" )},
-  { N, "<A-h>", "_", opts("Go to beginning of line in normal mode")}
-  { N , "<A-l>", "$", opts("Go to end of line in normal mode")}
-  { N, "<leader>pv", vim.cmd.Ex, opts("Open file whatever it's called")}
+  { N, "<A-h>", "_", opts("Go to beginning of line in normal mode")},
+  { N , "<A-l>", "$", opts("Go to end of line in normal mode")},
+  { N, "<leader>pv", vim.cmd.Ex, opts("Open file whatever it's called")},
   { N, "<C-d>", "<C-d>zz", opts("Scroll down and center") },
   { N, "<C-u>", "<C-u>zz", opts("Scroll up and center") },
 
   { N_I, "qq", "<cmd>q<CR>", opts("Quick quit") },
 
-  { I, "jj", "<ESC>", opts("Exits insert mode")}
+  { I, "jj", "<ESC>", opts("Exits insert mode")},
   { I, "::", "<Esc>:", opts("Enter command mode in insert mode") },
 
   { V, "d", '"ad', opts("Delete without yanking") },
 
   -- Pane/Window work
-  { N, "<leader>q", "<C-w>c", opts("Close active pane")}
-  { N, "<leader>v", "<C-w>v", opts("Open new pane vertically split")}
-  { N, '<C-h>', '<C-w>h', opts("Move to left pane")}
-  { N, '<C-j>', '<C-w>j', opts("Move to down pane")}
-  { N, '<C-k>', '<C-w>k', opts("Move to up pane")}
-  { N, '<C-l>', '<C-w>l', opts("Move to right pane")}
+  { N, "<leader>q", "<C-w>c", opts("Close active pane")},
+  { N, "<leader>v", "<C-w>v", opts("Open new pane vertically split")},
+  { N, '<C-h>', '<C-w>h', opts("Move to left pane")},
+  { N, '<C-j>', '<C-w>j', opts("Move to down pane")},
+  { N, '<C-k>', '<C-w>k', opts("Move to up pane")},
+  { N, '<C-l>', '<C-w>l', opts("Move to right pane")},
 
   -- Move line(s) vertically
-  { N, '<A-j>', ':m .+1<CR>==', opts("Move one line down")}
-  { N, '<A-k>', ':m .-2<CR>==', opts("Move one line up")}
-  { V, '<A-j>', ":m '>+1<CR>==", opts("Move one line down")}
-  { V, '<A-k>', ":m '<-2<CR>==", opts("Move one line up")}
+  { N, '<A-j>', ':m .+1<CR>==', opts("Move one line down")},
+  { N, '<A-k>', ':m .-2<CR>==', opts("Move one line up")},
+  { V, '<A-j>', ":m '>+1<CR>==", opts("Move one line down")},
+  { V, '<A-k>', ":m '<-2<CR>==", opts("Move one line up")},
 
   -- Telescope mappings
-  { N, '<leader>ff', tlscp.find_files, opts("Choose from files")}
-  { N, '<leader>fw', tlscp.live_grep, opts("Grep for words")}
-  { N, '<leader>fb', tlscp.buffers, opts("Choose from active buffers")}
-  { N, '<leader>fh', tlscp.help_tags, opts("Help tags")}
-  { N, '<leader>fr', ":lua Snacks.dashboard.pick('oldfiles')<CR>", opts("Choose from recent files")}
+  { N, '<leader>ff', tlscp.find_files, opts("Choose from files")},
+  { N, '<leader>fw', tlscp.live_grep, opts("Grep for words")},
+  { N, '<leader>fb', tlscp.buffers, opts("Choose from active buffers")},
+  { N, '<leader>fh', tlscp.help_tags, opts("Help tags")},
+  { N, '<leader>fr', ":lua Snacks.dashboard.pick('oldfiles')<CR>", opts("Choose from recent files")},
 
   -- Extras
   { N, "<C-A-k>", "yy[P", opts("Duplicate line up") },
