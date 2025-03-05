@@ -2,7 +2,7 @@
 require("nvim-autopairs").setup({
   check_ts = true,  -- Enable tree-sitter-based syntax checking for pairs
   fast_wrap = {
-    map = "<M-e>",  -- Shortcut to quickly wrap selected text with pairs (e.g., brackets)
+    map = "<A-e>",  -- Shortcut to quickly wrap selected text with pairs (e.g., brackets)
     chars = { "(", "{", "[", '"', "'" },
     pattern = string.gsub([[ [%'%"%>%)%]%-] ]], "%s", ""),
     end_key = "$",

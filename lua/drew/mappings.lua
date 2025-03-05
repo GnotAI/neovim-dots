@@ -35,8 +35,6 @@ local tlscp = require('telescope.builtin')
 local keymaps = {
   -- General mappings
   { N, ";", ":", opts("CMD enter command mode" )},
-  { N, "<A-h>", "_", opts("Go to beginning of line in normal mode")},
-  { N, "<A-l>", "$", opts("Go to end of line in normal mode")},
   { N, "<leader>pv", vim.cmd.Ex, opts("Open file whatever it's called")},
   { N, ':', '<cmd>Telescope cmdline<CR>', opts("Opens cmdline")},
   { N, ';', '<cmd>Telescope cmdline<CR>', opts("Opens cmdline")},

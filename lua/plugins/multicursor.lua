@@ -11,10 +11,10 @@ end)
 set({ "n", "x" }, "<leader>j", function()
   mc.lineAddCursor(1)
 end)
-set({ "n", "x" }, "<down>", function()
+set({ "n", "x" }, "<up>", function()
   mc.lineSkipCursor(-1)
 end)
-set({ "n", "x" }, "<up>", function()
+set({ "n", "x" }, "<down>", function()
   mc.lineSkipCursor(1)
 end)
 
@@ -57,8 +57,8 @@ set({ "n", "x" }, "<leader>A", mc.matchAllAddCursors)
     -- end)
 
     -- Rotate the main cursor.
-    set({ "n", "x" }, "<left>", mc.nextCursor)
-    set({ "n", "x" }, "<right>", mc.prevCursor)
+    set({ "n", "x" }, "<A-l>", mc.nextCursor)
+    set({ "n", "x" }, "<A-h>", mc.prevCursor)
 
     -- Delete the main cursor.
     set({ "n", "x" }, "<leader>x", mc.deleteCursor)
@@ -73,7 +73,7 @@ set({ "n", "x" }, "<leader>A", mc.matchAllAddCursors)
     -- Clone every cursor and disable the originals.
     set({ "n", "x" }, "<leader><c-q>", mc.duplicateCursors)
 
-    set("n", "`", function()
+    set("n", "<A-i>", function()
       if not mc.cursorsEnabled() then
         mc.enableCursors()
       elseif mc.hasCursors() then
