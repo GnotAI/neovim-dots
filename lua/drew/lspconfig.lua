@@ -7,6 +7,7 @@ local lsp_servers = {
   javascript = { lsp = 'typescript-language-server', pattern = { 'javascript', 'typescript' } },
   c = { lsp = 'clangd', pattern = 'c' },
   cpp = { lsp = 'clangd', pattern = 'cpp' },
+  zig = { lsp = 'zls', pattern = 'zig' },
 }
 
 -- Function to handle LSP attachment
@@ -45,7 +46,7 @@ end
 
 -- Auto command for all the specified file types
 autocmd("FileType", {
-  pattern = { "go", "python", "javascript", "typescript", "c", "cpp" },
+  pattern = { "go", "python", "javascript", "typescript", "c", "cpp", "zig" },
   callback = function()
     attach_lsp(vim.bo.filetype)
   end
