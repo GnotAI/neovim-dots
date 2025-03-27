@@ -31,6 +31,19 @@ require("lazy").setup({
     { "norcalli/nvim-colorizer.lua" },
     { "HiPhish/nvim-ts-rainbow2" },
     {
+      "saghen/blink.cmp",
+      event = "InsertEnter",
+      dependencies = {
+        "rafamadriz/friendly-snippets",
+        "L3MON4D3/LuaSnip",
+        {
+          "saghen/blink.compat",
+          optional = true,
+          opts = {},
+        },
+      },
+    },
+    {
       "jake-stewart/multicursor.nvim",
       enabled = true,
     },
@@ -287,16 +300,6 @@ require("lazy").setup({
           end,
         })
       end,
-    },
-    {
-      "hrsh7th/nvim-cmp",
-      dependencies = {
-        "hrsh7th/cmp-nvim-lsp",    -- LSP completion
-        "L3MON4D3/LuaSnip",        -- Snippet engine
-        "saadparwaiz1/cmp_luasnip",-- Snippet source for cmp
-        "hrsh7th/cmp-buffer",      -- Buffer completion
-        "hrsh7th/cmp-path",        -- Path completion
-      },
     },
     {
       "ThePrimeagen/harpoon",
