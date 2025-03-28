@@ -1,4 +1,8 @@
-require("smoothcursor").setup({
+return { 
+  "gen740/SmoothCursor.nvim",
+
+  config = function()
+    require("smoothcursor").setup({
       autostart = true,
       cursor = "", -- Customize the cursor icon
       linehl = nil, -- Highlight current line (optional)
@@ -13,3 +17,5 @@ require("smoothcursor").setup({
         },
       },
     })
+  end
+}
