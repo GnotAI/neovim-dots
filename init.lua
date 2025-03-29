@@ -15,5 +15,4 @@ o.undodir = os.getenv("HOME") .. "/.config/nvim/undo"  -- Set the undo directory
 
 -- External file configs
 require("drew.lazy")
-require("drew.lspconfig")
 require("drew.mappings")

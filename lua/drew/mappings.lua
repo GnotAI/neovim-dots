@@ -4,24 +4,6 @@ local function opts(desc, extra)
   return extra and vim.tbl_extend("force", default, extra) or default
 end
 
-vim.api.nvim_set_keymap('n', '<leader>ws', ':wa!<CR>', { noremap = true, desc = "Cmdline" })
-vim.api.nvim_set_keymap("n", "<leader>a", "ggVG", { noremap = true, silent = true, desc = "Select all" })
-
-vim.api.nvim_set_keymap('n', '<Esc>', ':let @/ = ""<CR>:nohlsearch<CR>', { noremap = true, silent = true })
-
--- Floaterm mappings
--- vim.api.nvim_set_keymap('n', '<A-i>', ':FloatermToggle<CR>', { noremap = true, silent = true })
--- vim.api.nvim_set_keymap('i', '<A-i>', '<Esc>:FloatermToggle<CR>', { noremap = true, silent = true }) -- Insert mode
--- vim.api.nvim_set_keymap('t', '<A-i>', '<C-\\><C-n>:FloatermToggle<CR>', { noremap = true, silent = true }) -- Terminal mode
-
--- Move cursor around vertically and center
-vim.api.nvim_set_keymap("n", "<C-f>", "zz<C-f>", { noremap = true, silent = true, desc = "Scroll up and center" })
-vim.api.nvim_set_keymap("n", "<C-b>", "zz<C-b>", { noremap = true, silent = true, desc = "Scroll up and center" })
-
--- Comment api mappings
-vim.api.nvim_set_keymap('n', '<leader><leader>', ':lua require("Comment.api").toggle.linewise.current()<CR>', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('v', '<leader><leader>', ':lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>', { noremap = true, silent = true })
-
 local N = "n"
 local V = "v"
 local I = "i"
@@ -35,6 +17,8 @@ local tlscp = require('telescope.builtin')
 local keymaps = {
   -- General mappings
   { N, ";", ":", opts("CMD enter command mode" )},
+  { N, '<leader>ws', ':wa!<CR>', opts("Save")},
+  { N, "<leader>a", "ggVG", opts("Select all")},
   { N, "<leader>pv", vim.cmd.Ex, opts("Open file whatever it's called")},
   { N, ':', '<cmd>Telescope cmdline<CR>', opts("Opens cmdline")},
   { N, ';', '<cmd>Telescope cmdline<CR>', opts("Opens cmdline")},
@@ -42,8 +26,14 @@ local keymaps = {
   { N, "<C-u>", "zzzz<C-u>zz", opts("Scroll up while centered") },
   { N, "n", "zznzz", opts("Previous search result and center" )},
   { N, "N", "zzNzz", opts("Previous search result and center" )},
+  { N, '<Esc>', ':let @/ = ""<CR>:nohlsearch<CR>', opts("Cancel buf search with esc")},
 
   { N_I, "qq", "<cmd>qa!<CR>", opts("Quick quit") },
+
+
+
+
+
 
   { I, "jj", "<ESC>", opts("Exits insert mode")},
   { I, "::", "<Esc>:", opts("Enter command mode in insert mode") },
@@ -58,11 +48,19 @@ local keymaps = {
   { N, '<C-k>', '<C-w>k', opts("Move to up pane")},
   { N, '<C-l>', '<C-w>l', opts("Move to right pane")},
 
+  -- Move cursor around vertically and center
+  { N, "<C-f>", "zz<C-f>", opts("Scroll up and center")},
+  { N, "<C-b>", "zz<C-b>", opts("Scroll up and center")},
+
   -- Move line(s) vertically
   { N, '<A-j>', ':m .+1<CR>==', opts("Move one line down")},
   { N, '<A-k>', ':m .-2<CR>==', opts("Move one line up")},
   { V, '<A-j>', ":m '>+1<CR>==", opts("Move one line down")},
   { V, '<A-k>', ":m '<-2<CR>==", opts("Move one line up")},
+
+  -- Comment api mappings
+  { N, '<leader><leader>', ':lua require("Comment.api").toggle.linewise.current()<CR>', opts("Comment line")},
+  { V, '<leader><leader>', ':lua require("Comment.api").toggle.linewise(vim.fn.visualmode())<CR>', opts("Comment line")},
 
   -- Telescope mappings
   { N, '<leader>ff', tlscp.find_files, opts("Choose from files")},
