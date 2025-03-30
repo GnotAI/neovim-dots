@@ -1,7 +1,7 @@
 return { 
   "nvim-treesitter/nvim-treesitter",
   dependencies = { 
-    "HiPhish/nvim-ts-rainbow2",
+    "p00f/nvim-ts-rainbow",
     {
       "windwp/nvim-ts-autotag",
       config = true,
@@ -53,12 +53,11 @@ return {
 
       rainbow = {
         enable = true,
+        extended_mode = false,
         -- list of languages you want to disable the plugin for
         disable = { 'jsx', 'cpp' },
         -- Which query to use for finding delimiters
         query = 'rainbow-parens',
-        -- Highlight the entire buffer all at once
-        strategy = require('ts-rainbow').strategy.global,
       },
     })
 

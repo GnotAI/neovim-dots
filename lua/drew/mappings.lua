@@ -30,11 +30,6 @@ local keymaps = {
 
   { N_I, "qq", "<cmd>qa!<CR>", opts("Quick quit") },
 
-
-
-
-
-
   { I, "jj", "<ESC>", opts("Exits insert mode")},
   { I, "::", "<Esc>:", opts("Enter command mode in insert mode") },
 
