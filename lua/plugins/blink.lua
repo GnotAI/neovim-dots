@@ -1,3 +1,10 @@
+-- Set a global variable indicating if AI is enabled
+if pcall(require, 'tabnine') then
+  vim.g.ai_cmp = true  -- TabNine is available
+else
+  vim.g.ai_cmp = false -- TabNine is not available
+end
+
 return {
   "saghen/blink.cmp",
   event = "InsertEnter",
@@ -9,6 +16,7 @@ return {
       optional = true,
     },
   },
+
 
   opts = {
     fuzzy = {
@@ -30,7 +38,7 @@ return {
       },
       menu = {
         draw = {
-          treesitter = { "lsp" },
+          -- treesitter = { "lsp" },
         },
       },
       documentation = {
@@ -38,7 +46,7 @@ return {
         auto_show_delay_ms = 200,
       },
       ghost_text = {
-        enabled = vim.g.ai_cmp or true,
+        enabled = vim.g.ai_cmp or false,
       },
     },
     sources = {
