@@ -64,6 +64,11 @@ local keymaps = {
   { N, '<leader>fh', tlscp.help_tags, opts("Help tags")},
   { N, '<leader>fr', ":lua Snacks.dashboard.pick('oldfiles')<CR>", opts("Choose from recent files")},
 
+  -- Folding
+  { N, 'zr', vim.cmd.foldopen, opts("Open fold")},
+  { N, 'zm', vim.cmd.foldclose, opts("Close fold")},
+  { N, 'za', "za", opts("Toggle current folid")},
+
   -- Extras
   { N, "<C-A-k>", "yy[P", opts("Duplicate line up") },
   { N, "<C-A-j>", "yy]p", opts("Duplicate line down") },

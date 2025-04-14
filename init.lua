@@ -1,13 +1,23 @@
 -- Options
 local o = vim.opt
 
-o.cmdheight = 0
-o.number = true
-o.swapfile = false
-o.relativenumber = true
 o.termguicolors = true
+
+o.cmdheight = 0
+o.swapfile = false
+
+o.number = true
+o.relativenumber = true
+
 o.undofile = true  -- Turn on persistent undo
 o.undodir = os.getenv("HOME") .. "/.config/nvim/undo"  -- Set the undo directory
+
+o.foldmethod = "syntax"
+o.foldcolumn = "0"
+o.foldlevel = 99
+o.foldenable = true
+o.foldtext = "getline(v:foldstart) .. ' ...'"
+o.fillchars = "fold: "
 
 -- External file configs
 require("drew.lazy")
