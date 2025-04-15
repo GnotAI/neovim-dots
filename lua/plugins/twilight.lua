@@ -16,6 +16,6 @@ return {
       },
     }
     -- Automatically enable Twilight on file open
-    vim.cmd("TwilightEnable")
+    -- vim.cmd("TwilightEnable")
   end
 }

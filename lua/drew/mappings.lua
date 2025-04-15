@@ -4,6 +4,17 @@ local function opts(desc, extra)
   return extra and vim.tbl_extend("force", default, extra) or default
 end
 
+function toggle_fold()
+  local line = vim.fn.line(".") -- Get the current line number
+  if vim.fn.foldclosed(line) == -1 then
+    -- The fold is open, so we close it
+    vim.cmd("normal! zc") -- Close fold at current line
+  else
+    -- The fold is closed, so we open it
+    vim.cmd("normal! zo") -- Open fold at current line
+  end
+end
+
 local N = "n"
 local V = "v"
 local I = "i"
@@ -65,9 +76,9 @@ local keymaps = {
   { N, '<leader>fr', ":lua Snacks.dashboard.pick('oldfiles')<CR>", opts("Choose from recent files")},
 
   -- Folding
-  { N, 'zr', vim.cmd.foldopen, opts("Open fold")},
-  { N, 'zm', vim.cmd.foldclose, opts("Close fold")},
-  { N, 'za', "za", opts("Toggle current folid")},
+  { N, 'zr', require('ufo').openAllFolds, opts("Open all folds")},
+  { N, 'zm', require('ufo').closeAllFolds, opts("Close all folds")},
+  { N, 'zp', ':lua toggle_fold()<CR>', opts("Toggle current folid")},
 
   -- Extras
   { N, "<C-A-k>", "yy[P", opts("Duplicate line up") },
