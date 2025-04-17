@@ -6,7 +6,7 @@ return {
   dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim", },
 
   config = function()
-    keys = function()
+   keys = function()
       local harpoon = require("harpoon")
       local conf = require("telescope.config").values
 

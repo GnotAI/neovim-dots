@@ -36,37 +36,59 @@ return {
         cmd = { "pylsp" },
         root_dir = function(fname)
           return get_root_dir(fname, { ".git", "setup.py", "pyproject.toml" }) -- Default to cwd if nothing found
-        end,
-      },
-      ts_ls = {
-        cmd = { "typescript-language-server", "--stdio" },
-        root_dir = function(fname)
-          return get_root_dir(fname, { ".git", "package.json", "tsconfig.json" }) -- Default to cwd if nothing found
-        end,
-      },
-      clangd = {
-        cmd = { "clangd" },
-        root_dir = function(fname)
-          return get_root_dir(fname, { "CMakeLists.txt", ".git" }) -- Default to cwd if nothing found
-        end,
-      },
-      zls = {
-        cmd = { "zls" },
-        root_dir = function(fname)
-          return get_root_dir(fname, { ".git", "build.zig" }) -- Default to cwd if nothing found
-        end,
-      },
-    }
+          end,
+        },
+        ts_ls = {
+          cmd = { "typescript-language-server", "--stdio" },
+          root_dir = function(fname)
+            return get_root_dir(fname, { ".git", "package.json", "tsconfig.json" }) -- Default to cwd if nothing found
+            end,
+          },
+          lua_ls = {
+            cmd = { "lua-language-server" },
+            settings = {
+              Lua = {
+                runtime = {
+                  version = "LuaJIT",
+                  path = vim.split(package.path, ";"),
+                },
+                diagnostics = {
+                  globals = { "vim" }, -- Prevents "undefined global 'vim'" warning
+                },
+                workspace = {
+                  library = vim.api.nvim_get_runtime_file("", true),
+                  checkThirdParty = false, -- Avoid prompts about third-party libraries
+                },
+                telemetry = { enable = false },
+              },
+            },
+            root_dir = function(fname)
+              return get_root_dir(fname, { ".git", "init.lua", ".luarc.json", ".luacheckrc" }) -- customize if needed
+              end,
+            },
+            clangd = {
+              cmd = { "clangd" },
+              root_dir = function(fname)
+                return get_root_dir(fname, { "CMakeLists.txt", ".git" }) -- Default to cwd if nothing found
+                end,
+              },
+              zls = {
+                cmd = { "zls" },
+                root_dir = function(fname)
+                  return get_root_dir(fname, { ".git", "build.zig" }) -- Default to cwd if nothing found
+                  end,
+                },
+              }
 
-    -- Set up each LSP
-    for lsp, config in pairs(servers) do
-      lspconfig[lsp].setup({
-        cmd = config.cmd,
-        root_dir = config.root_dir,
-        on_attach = function(client, bufnr)
-          lsp_keymaps(bufnr) -- Attach keymaps when the LSP starts
-        end,
-      })
-    end
-  end
-}
+              -- Set up each LSP
+              for lsp, config in pairs(servers) do
+                lspconfig[lsp].setup({
+                    cmd = config.cmd,
+                    root_dir = config.root_dir,
+                    on_attach = function(client, bufnr)
+                      lsp_keymaps(bufnr) -- Attach keymaps when the LSP starts
+                    end,
+                  })
+              end
+            end
+          }

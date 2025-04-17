@@ -46,6 +46,8 @@ local keymaps = {
 
   { V, "d", '"ad', opts("Delete without yanking") },
 
+  { N, "tt", "<cmd>Telescope diagnostics<cr>", opts("Toggle trouble.nvim")},
+
   -- Pane/Window work
   { N, "<leader>q", "<C-w>c", opts("Close active pane")},
   { N, "<leader>v", "<C-w>v", opts("Open new pane vertically split")},
