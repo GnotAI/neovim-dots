@@ -37,7 +37,7 @@ return {
     -- Lualine configuration
     require("lualine").setup({
         options = {
-          theme = everforest,
+          theme = everblush,
           component_separators = '|',
           section_separators = { left = '', right = '' },
           globalstatus = true,
@@ -65,7 +65,6 @@ return {
           },
           lualine_x = { 'encoding' },
           lualine_y = {
-            "filetype",
             {
               -- Show the current lsp
               icon = " ",

@@ -12,7 +12,5 @@ return {
       disable_italic_comments = true,  -- Disable italics in comments if preferred
       ui_contrast = "high",       -- Options: 'low', 'normal', 'high'
     })
-
-  vim.cmd("colorscheme everforest")
   end
 }
