@@ -6,7 +6,7 @@ return {
   dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim", },
 
   config = function()
-   keys = function()
+  local keys = function()
       local harpoon = require("harpoon")
       local conf = require("telescope.config").values
 
@@ -38,9 +38,9 @@ return {
         {"<leader>6", function() harpoon:list():prev() end, desc ="Harpoon prev buffer"},
         -- Harpoon user interface.
         {"<leader>7", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, desc ="Harpoon Toggle Menu"},
-        {"<leader>8", function() harpoon:list():add() end, desc ="Harpoon add file"},
+        {"<leader>ha", function() harpoon:list():add() end, desc ="Harpoon add file"},
         -- Use Telescope as Harpoon user interface.
-        {"<leader>9", function() toggle_telescope(harpoon:list() )end, desc ="Open Harpoon window"},
+        {"<leader>hp", function() toggle_telescope(harpoon:list() )end, desc ="Open Harpoon window"},
       }
     end
 

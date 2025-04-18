@@ -18,8 +18,8 @@ end
 local N = "n"
 local V = "v"
 local I = "i"
-local T = "t"
-local N_V = { N, V }
+-- local T = "t"
+-- local N_V = { N, V }
 local N_I = { N, I }
 
 -- Telescope mappings
