@@ -17,7 +17,11 @@ return {
       -- Format the window list
       windows = windows:gsub("\n", " ") -- Separate windows with " | "
 
-      return " " ..  session_name:gsub('\n', " ") .. windows  
+      return " " ..  session_name:gsub('\n', " ") .. windows
+    end
+
+    local function get_time()
+      return os.date("%H:%M")
     end
 
     local function lsp_name()
@@ -37,7 +41,7 @@ return {
     -- Lualine configuration
     require("lualine").setup({
         options = {
-          theme = everblush,
+          theme = "auto",
           component_separators = '|',
           section_separators = { left = '', right = '' },
           globalstatus = true,
@@ -63,7 +67,7 @@ return {
               end,
             },
           },
-          lualine_x = { 'encoding' },
+          lualine_x = { get_time, 'encoding' },
           lualine_y = {
             {
               -- Show the current lsp
