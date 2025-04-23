@@ -1,6 +1,7 @@
 -- Options
 local o = vim.opt
 
+o.laststatus = 0
 o.termguicolors = true
 
 o.cmdheight = 0
